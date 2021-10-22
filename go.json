@@ -1,6 +1,6 @@
 {
 	"If not nil": {
-		"prefix": "ifnn",
+		"prefix": "ye-ifnn",
 		"body": [
 			"if $1 != nil {",
 			"\t$2",
@@ -8,11 +8,56 @@
 		]
 	},
 	"If error exists": {
-		"prefix": "iferr",
+		"prefix": "ye-iferr",
 		"body": [
 			"if err := $1; err != nil {",
 			"\t$2",
 			"}"
+		]
+	},
+	"Struct and Interface": {
+		"prefix": "ye-struct",
+		"body": [
+			"type ${1/(.*)/${1:/capitalize}/} interface {",
+			"}",
+			"",
+			"type ${1} struct {",
+			"}",
+			"",
+			"func New${1/(.*)/${1:/capitalize}/}() ${1/(.*)/${1:/capitalize}/} {",
+			"\treturn &${1}{}",
+			"}",
+		]
+	},
+	"Struct CRUD": {
+		"prefix": "ye-crud",
+		"body": [
+			"type ${1/(.*)/${1:/capitalize}/} interface {",
+			"\tCreate() error",
+			"\tUpdate() error",
+			"\tList() error",
+			"\tDelete() error",
+			"}",
+			"",
+			"type ${1} struct {",
+			"}",
+			"",
+			"func New() ${1/(.*)/${1:/capitalize}/} {",
+			"\treturn &${1}{}",
+			"}",
+			"",
+			"func (st *${1}) Create() error {",
+			"\t return nil",
+			"}",
+			"func (st *${1}) Update() error {",
+			"\t return nil",
+			"}",
+			"func (st *${1}) List() error {",
+			"\t return nil",
+			"}",
+			"func (st *${1}) Delete() error {",
+			"\t return nil",
+			"}",
 		]
 	},
 }
